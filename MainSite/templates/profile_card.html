@@ -1,0 +1,122 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile_card.css' %}">
+<div class="container border rounded mb-4 mt-4">
+  <div class="row  ">
+
+        <div class="col-lg-4 col-sm-12 centre " >
+
+            {% if student.photo %}
+            <img src="{{student.photo.url}}" alt="{{ student.full_name }}" class="my-3 fixed-height img-fluid pr-2 rounded">
+            {% else %}
+            <img src="{% static 'image/default.jpg' %}" alt="{{ student.full_name }}" class="my-3 fixed-height img-fluid rounded pr-2">
+            {% endif %}
+
+        </div>
+
+        <div class="col-lg-8 col-sm-12   text-sm-left text-lg-left px-4 mb-4">
+          <div class="row">
+
+            <div class="col-lg-12 col-sm-12 p-2" >
+             <a href="profile/{{student.user.id}}" class="h1">{{student.full_name}}</a>
+            </div>
+
+            <div class="col-lg-12 col-sm-12 p-1  ">
+              <span class="text-dark ">Дата рождения: </span>
+              <span class="text-secondary">{{student.date_of_birth}}</span>
+            </div>
+
+            <div class="col-lg-12 col-sm-12 p-1  ">
+              <span class="text-dark ">Возраст: </span>
+              <span class="text-secondary">{{student.age}}</span>
+            </div>
+
+            <div class="col-lg-12 col-sm-12 p-1  ">
+              <span class="text-dark ">Пол: </span>
+              <span class="text-secondary">{{student.gender}}</span>
+            </div>
+
+            <div class="col-lg-12 col-sm-12 p-2  mt-4">
+              <span class="h4 ">Контакты</span>
+            </div>
+
+            <div class="col-lg-12 col-sm-12 p-1  ">
+              <span class="text-dark ">Почта: </span>
+              <span class="text-secondary">{{student.email}}</span>
+            </div>
+
+            <div class="col-lg-12 col-sm-12 p-1  ">
+              <span class="text-dark ">Номер телефона: </span>
+              <span class="text-secondary">{{student.phone_number}}</span>
+            </div>
+
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<!--<div class="row ">-->
+
+<!--        <div class="col-lg-4 col-sm-12  p-2 centre fixed-height centre border" >-->
+<!--          <div  class="">-->
+<!--            {% if student.photo %}-->
+<!--            <img src="{{student.photo.url}}" alt="{{ student.full_name }}" class="img-fluid">-->
+<!--            {% else %}-->
+<!--            <img src="{% static 'image/default.jpg' %}" alt="{{ student.full_name }}">-->
+<!--            {% endif %}-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-lg-8 col-sm-12 border  text-sm-left text-lg-left mb-4 mt-4">-->
+<!--          <div class="row">-->
+
+<!--            <div class="col-lg-12 col-sm-12 p-2  font-weight-bold" >-->
+<!--             <p class="h1">{{student.full_name}}</p>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-12 col-sm-12 p-1  ">-->
+<!--              <span class="text-dark ">Дата рождения: </span>-->
+<!--              <span class="text-secondary">{{student.date_of_birth}}</span>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-12 col-sm-12 p-1  ">-->
+<!--              <span class="text-dark ">Возраст: </span>-->
+<!--              <span class="text-secondary">{{student.age}}</span>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-12 col-sm-12 p-1  ">-->
+<!--              <span class="text-dark ">Пол: </span>-->
+<!--              <span class="text-secondary">{{student.gender}}</span>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-12 col-sm-12 p-2  mt-4">-->
+<!--              <span class="h4 ">Контакты</span>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-12 col-sm-12 p-1  ">-->
+<!--              <span class="text-dark ">Почта: </span>-->
+<!--              <span class="text-secondary">{{student.email}}</span>-->
+<!--            </div>-->
+
+<!--            <div class="col-lg-12 col-sm-12 p-1  ">-->
+<!--              <span class="text-dark ">Номер телефона: </span>-->
+<!--              <span class="text-secondary">{{student.phone_number}}</span>-->
+<!--            </div>-->
+
+<!--          </div>-->
+
+<!--      </div>-->
+
+<!--        <div class="col-12  text-sm-left text-lg-left mt-4 p-2">-->
+<!--      <span class="h4  ">Навыки </span>-->
+<!--    </div>-->
+
+<!--        <div class="col-12  text-sm-left text-lg-left p-2 pb-4 mb-4">-->
+<!--      {% for skill in student.skills.all %}-->
+<!--        <span class="skill">{{ skill.name }} </span>-->
+<!--      {% empty %}-->
+<!--      <p>Нет навыков</p>-->
+<!--      {% endfor %}-->
+<!--    </div>-->
+
+<!--    </div>-->

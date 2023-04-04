@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #1f2937;
+    color: #f9fafb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #f9fafb;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.content {
+    flex: 1;
+    padding: 5vh;
+    margin-top: 5vh;
+
+
+}
+
+.footer {
+    background-color: #1f2937;
+    color: #f9fafb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: auto;
+}
+
+/* Общие стили для всех ссылок */
+a {
+    color: #f9fafb;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+/* Стили для ссылок в навигации */
+.header a {
+    color: #f9fafb;
+    text-decoration: none;
+    margin-left: 20px
+}
+
+.header a:hover {
+    color: #9393b8;
+    text-decoration: none;
+}
+
+/* Стили для кнопок */
+a.button {
+   display: inline-block;
+  background-color: transparent;
+  border: 1px solid #eff2f6;
+  color: #f9fafb;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+a.button:hover {
+  border-color: #9393b8;
+}
+/* Стили для ссылок в контенте */
+.content a {
+    color: #1f2937;
+    text-decoration: none;
+}
+
+.content a:hover {
+    color: #4b5563;
+    text-decoration: underline;
+}
+
