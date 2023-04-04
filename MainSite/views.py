@@ -13,9 +13,7 @@ from datetime import datetime
 import random
 import string
 from transliterate import translit
-
 import random
-
 
 
 def student_add(request):
@@ -24,7 +22,6 @@ def student_add(request):
         if form.is_valid():
             full_name = form.cleaned_data['full_name']
             gender = form.cleaned_data['gender']
-
             date_of_birth = form.cleaned_data['date_of_birth']
             age = date.today().year - date_of_birth.year - ((date.today().month, date.today().day) < (
             date_of_birth.month, date_of_birth.day))
@@ -40,8 +37,6 @@ def student_add(request):
         form = StudentForm()
     return render(request, 'student_add.html', {'form': form, })
 
-# def home(request):
-#     return render(request, 'base.html', context={'user': request.user})
 
 def login_view(request):
     if request.method == 'POST':
@@ -57,6 +52,7 @@ def login_view(request):
         error_message = ''
     return render(request, 'login.html', {'error_message': error_message})
 
+
 def logout_view(request):
     logout(request)
     return redirect('home')
@@ -64,17 +60,13 @@ def logout_view(request):
 
 def user_profile(request, id):
     user = User.objects.get(id=id)
-
     context = {"student": user.student,
                }
     return render(request, "user_profile.html", context)
 
+
 def home(request):
-    print("1")
-
     if request.method == "GET" and 'sort_form' in request.GET:
-        print("2")
-
         form = SortForm(request.GET, initial={'sort_field': request.GET.get('sort_field')})
         if form.is_valid():
 
@@ -91,6 +83,7 @@ def home(request):
     context = {"users": User.objects.order_by('date_joined').filter(is_superuser=False),
                "sort_form": SortForm()}
     return render(request, "home.html", context=context)
+
 
 def upload_students(request):
     if request.method == 'POST':
@@ -129,8 +122,6 @@ def upload_students(request):
 
 
 def profile_edit(request, id):
-
-
     student = Student.objects.get(id=id)
     if student.user != request.user:
         return HttpResponse("Ай Ай Ай, у нас тут завелся hacker!")
@@ -145,7 +136,6 @@ def profile_edit(request, id):
             student.age = age
             student.save()
             return HttpResponseRedirect(f"/profile/{id}")
-
     else:
         data = {'full_name': student.full_name,
                 'gender': student.gender,
