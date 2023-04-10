@@ -16,7 +16,8 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['full_name', 'gender', 'date_of_birth', 'phone_number', 'email', 'photo', 'skills']
+        fields = ['full_name', 'gender', 'date_of_birth', 'phone_number',
+                  'email', 'photo', 'skills', 'telegram', 'group', 'hide_contacts']
 
 class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)

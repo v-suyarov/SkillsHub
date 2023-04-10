@@ -39,5 +39,6 @@ class StudentAdmin(admin.ModelAdmin):
 
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Skill)
+admin.site.register(Group)
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)

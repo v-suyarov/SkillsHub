@@ -96,9 +96,11 @@ def upload_students(request):
             for fullName in content:
                 first_name = fullName.split()[1]
                 last_name = fullName.split()[0]
-
+                login_first = "".join(list(filter(lambda x:  x not in """ `'" """, translit(first_name.lower(), 'ru', reversed=True))))
+                login_last = "".join(list(filter(lambda x:  x not in """ `'" """, translit(last_name.lower(), 'ru', reversed=True))))
+                print(first_name, last_name)
                 # Генерируем логин в формате имя_фамилия_число
-                username = f"{translit(first_name.lower(), 'ru', reversed=True)}_{translit(last_name.lower(), 'ru', reversed=True)}_{User.objects.count() + 1}"
+                username = f"{login_first}_{login_last}_{User.objects.count() + 1}"
 
                 # Символы, из которых будет состоять пароль
                 chars = string.ascii_letters + string.digits
