@@ -36,6 +36,7 @@
   transition: background-color 0.2s;
 }
 
-.btn:hover {
-  background-color: #60a5fa;
+.btn:hover {           /*кнопка войти при входе при наведении*/
+  background-color: #4662eb;
 }
+
