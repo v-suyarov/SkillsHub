@@ -1,22 +1,10 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
 {% load mptt_tags %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
-
 <style>
 ul {
   list-style-type: none;
-  padding: 0;
-  margin: 0;
 }
 
-form {
-  margin-bottom: 20px;
-}
+
 form button[type="submit"] {
   background-color: green;
   color: black;
@@ -38,7 +26,7 @@ form button[type="submit"]:hover {
   cursor: pointer;
   margin: 5px 0;
   padding: 4px;
-  border: 0px solid #ddd;
+  border: 1px solid #ddd;
   border-radius: 5px;
   text-align: left;
   color: black;
@@ -47,7 +35,11 @@ form button[type="submit"]:hover {
   padding-left: 10px;
 }
 
+.container {
+  margin: 0 auto;
+  width: 50%;
 
+}
 
 .skill:not(.leaf):hover {
   background-color: #f5f5f5;
@@ -73,79 +65,43 @@ form button[type="submit"]:hover {
   background-color: #fff;
   cursor: pointer;
 }
-.skill-button:hover {
-  background-color: #f26650;
-  color: #fff;
-  border: 1px solid #f26650;
-  border-radius: 5px;
-}
 #selected-skills-list {
   display: flex;
-  border: 1px solid #ddd;
-  border-radius: 5px;
   flex-wrap: wrap;
   list-style-type: none;
-  min-height: 100px;
-  padding-bottom: 7px;
-  padding-top: 5px;
+  padding: 0;
   margin: 0;
 }
 
 #selected-skills-list li {
-  margin: 4px 0px 0px 7px;
-
-}
-
-.custom-label {
-padding: 4px 4px 4px 4px;
-color: black;
-font-weight: bold;
-font-size: 1.3rem;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 </style>
-<div class="container_form">
-    <h1>Основная информация</h1>
-    <form method="post" enctype="multipart/form-data" name="student_form">
-    {% csrf_token %}
-    <div>
-    {% for field in form %}
-    <div class="form-group">
-        {{field.label_tag}}
-        <div>{{field}}</div>
-        <div class="error">{{field.errors}}</div>
-    </div>
-    {% endfor %}
 
-    </div>
-    <input type="hidden" name="student_input" value="{{id}}">
-    <button type="submit" >Сохранить</button>
-</form>
-<h1>Ваши навыки</h1>
-<form method="post" name="skills_form">
-    <div class="custom-label">Дерево навыков</div>
-     <ul class="root">
+<div class="container">
+
+    <ul class="root">
       {% recursetree nodes %}
         <li class="skill{% if node.is_leaf_node %} leaf{% endif %}">
-          {{node.name}}
+          {{ node.name }}
           {% if not node.is_leaf_node %}
             <ul class="children">
-              {{children}}
+              {{ children }}
             </ul>
           {% endif %}
         </li>
       {% endrecursetree %}
     </ul>
-
+    <form method="post" action="{% url 'test' %}">
       {% csrf_token %}
-      <div class="custom-label">Выбранные навыки</div>
-      <ul id="selected-skills-list"></ul>
-      <input type="hidden" id="selected-skills-input" name="skills_input" value="{{ selected_skills }}">
-
-    <button type="submit">Сохранить</button>
-
-
+      <input type="hidden" id="selected-skills-input" name="selected_skills" value="{{ selected_skills }}">
+      <button type="submit">Отправить</button>
     </form>
+    <ul id="selected-skills-list"></ul>
+
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -155,21 +111,6 @@ $(document).ready(function() {
   // Объявляем переменную для хранения выбранных навыков
   var selectedSkills = [];
 
-  // Добавляем ранее выбранные навыки в список выбранных навыков
-  {% for skill in selected_skills %}
-    selectedSkills.push('{{ skill }}');
-  {% endfor %}
-
-  // Выводим выбранные навыки на страницу
-  for (var i = 0; i < selectedSkills.length; i++) {
-    var skillButton = $('<button>').text(selectedSkills[i]).addClass('skill-button').data('skill', selectedSkills[i]);
-    $('#selected-skills-list').append($('<li>').css('order', i).append(skillButton));
-  }
-
-  // Обновляем скрытое поле формы
-  $('#selected-skills-input').val(selectedSkills.join(','));
-
-
   // Обработчик клика на родительский элемент
   $('.skill').click(function() {
     $(this).children('.children').slideToggle();
@@ -178,15 +119,15 @@ $(document).ready(function() {
   // Обработчик клика на листовой элемент
   $('.leaf').click(function() {
     // Получаем текст элемента
-    var skillName = $(this).text().trim();
+    var skillName = $(this).text();
 
     // Проверяем, не был ли уже добавлен навык
-    if ($('#selected-skills-list').find('button').filter(function() { return $(this).data('skill') === skillName; }).length > 0) {
+    if ($('#selected-skills-list').find('button:contains("' + skillName + '")').length > 0) {
       // Если навык уже был добавлен, выводим сообщение об ошибке
       alert('Навык "' + skillName + '" уже был добавлен!');
     } else {
       // Если навык еще не был добавлен, создаем кнопку и добавляем ее в список выбранных навыков
-      var skillButton = $('<button>').text(skillName).addClass('skill-button').data('skill', skillName);
+      var skillButton = $('<button>').text(skillName).addClass('skill-button');
       $('#selected-skills-list').append($('<li>').css('order', selectedSkills.length).append(skillButton));
 
 
@@ -222,4 +163,3 @@ $(document).ready(function() {
 });
 });
 </script>
-{% endblock %}

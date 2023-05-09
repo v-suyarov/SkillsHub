@@ -17,32 +17,32 @@
           <div class="row">
 
             <div class="col-lg-12 col-sm-12 p-2" >
-             <a href="profile/{{student.user.id}}" class="h1">{{student.full_name}}</a>
+             <a href="profile/{{student.user.id}}" class="h1">{{student.full_name|default:"не указано" }}</a>
             </div>
 
             <div class="col-lg-12 col-sm-12 p-1  ">
               <span class="text-dark ">Дата рождения: </span>
-              <span class="text-secondary">{{student.date_of_birth}}</span>
+              <span class="text-secondary">{{student.date_of_birth|default:"не указано" }}</span>
             </div>
 
             <div class="col-lg-12 col-sm-12 p-1  ">
               <span class="text-dark ">Возраст: </span>
-              <span class="text-secondary">{{student.age}}</span>
+              <span class="text-secondary">{{student.age|default:"не указано" }}</span>
             </div>
 
             <div class="col-lg-12 col-sm-12 p-1  ">
               <span class="text-dark ">Пол: </span>
-              <span class="text-secondary">{{student.gender}}</span>
+              <span class="text-secondary">{{student.gender|default:"не указано" }}</span>
             </div>
 
               <div class="col-lg-12 col-sm-12 p-1  ">
               <span class="text-dark ">Год поступления: </span>
-              <span class="text-secondary">{{student.year_of_admission}}</span>
+              <span class="text-secondary">{{student.year_of_admission|default:"не указано" }}</span>
             </div>
 
               <div class="col-lg-12 col-sm-12 p-1  ">
               <span class="text-dark ">Учебная группа: </span>
-              <span class="text-secondary">{{student.group}}</span>
+              <span class="text-secondary">{{student.group|default:"не указано" }}</span>
             </div>
 
               <div class="col-lg-12 col-sm-12 p-2  mt-4">
@@ -52,13 +52,20 @@
             {% if not student.hide_contacts %}
                 <div class="col-lg-12 col-sm-12 p-1  ">
                     <span class="text-dark ">Почта: </span>
-                    <span class="text-secondary">{{student.email}}</span>
+
+                    <span class="text-secondary">{{ student.email|default:"не указано" }} </span>
+
                 </div>
 
               <div class="col-lg-12 col-sm-12 p-1  ">
                     <span class="text-dark ">Телеграм: </span>
-                    <span class="text-secondary">{{student.telegram}}</span>
+                    <span class="text-secondary">{{student.telegram|default:"не указано" }}</span>
                 </div>
+
+              <div class="col-lg-12 col-sm-12 p-1  ">
+                  <span class="text-dark ">Номер телефона: </span>
+                  <span class="text-secondary">{{student.phone_number|default:"не указано" }}</span>
+              </div>
             {% else %}
                 <div class="col-lg-12 col-sm-12 p-1  ">
                     <span class="text-secondary">Пользователь скрыл свои данные</span>

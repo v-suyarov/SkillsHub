@@ -1,10 +1,10 @@
-from django.contrib.auth.models import User
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Student, User
+from .models import Student, CustomUser
 
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=CustomUser)
 def create_student(sender, instance, created, **kwargs):
     if created:
 

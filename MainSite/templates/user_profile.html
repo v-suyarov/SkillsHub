@@ -43,15 +43,26 @@
           <span class="h4 ">Контакты</span>
         </div>
 
-        <div class="col-lg-12 col-sm-12 p-1  ">
-          <span class="text-dark ">Почта: </span>
-          <span class="text-secondary">{{student.email}}</span>
-        </div>
+        {% if not student.hide_contacts %}
+                <div class="col-lg-12 col-sm-12 p-1  ">
+                    <span class="text-dark ">Почта: </span>
+                    <span class="text-secondary">{{student.email}}</span>
+                </div>
 
-        <div class="col-lg-12 col-sm-12 p-1  ">
-          <span class="text-dark ">Номер телефона: </span>
-          <span class="text-secondary">{{student.phone_number}}</span>
-        </div>
+              <div class="col-lg-12 col-sm-12 p-1  ">
+                    <span class="text-dark ">Телеграм: </span>
+                    <span class="text-secondary">{{student.telegram}}</span>
+                </div>
+
+              <div class="col-lg-12 col-sm-12 p-1  ">
+                  <span class="text-dark ">Номер телефона: </span>
+                  <span class="text-secondary">{{student.phone_number}}</span>
+              </div>
+            {% else %}
+                <div class="col-lg-12 col-sm-12 p-1  ">
+                    <span class="text-secondary">Пользователь скрыл свои данные</span>
+                </div>
+            {% endif %}
 
       </div>
     </div>
@@ -79,54 +90,3 @@
 
 </div>
 {% endblock %}
-<!--<div class="row border">-->
-<!--        <div class="col-md-3">-->
-<!--          <div class="profile-picture">-->
-<!--            {% if student.photo %}-->
-<!--              <img src="{{student.photo.url}}" alt="{{ student.full_name }}" class="img-fluid rounded-circle">-->
-<!--            {% else %}-->
-<!--              <img src="{% static 'img/default-profile.jpg' %}" alt="{{ student.full_name }}" class="img-fluid rounded-circle">-->
-<!--            {% endif %}-->
-<!--          </div>-->
-<!--          <h3 class="profile-full-name">{{ student.full_name }}</h3>-->
-<!--          <p class="profile-gender">{{ student.gender }}</p>-->
-<!--          <p class="profile-age">{{ student.age }} лет</p>-->
-<!--          <p class="profile-date-of-birth">{{ student.date_of_birth }}</p>-->
-<!--          <p class="profile-phone-number">{{ student.phone_number }}</p>-->
-<!--          <p class="profile-email">{{ student.email }}</p>-->
-<!--        </div>-->
-<!--        <div class="col-md-9">-->
-<!--          <h3>О себе</h3>-->
-<!--          <p class="profile-about">{{ student.about }}</p>-->
-<!--          <h3>Навыки</h3>-->
-<!--          <div class="skills">-->
-<!--            {% for skill in student.skills.all %}-->
-<!--              <span class="skill">{{ skill.name }}</span>-->
-<!--            {% empty %}-->
-<!--              <p>Нет навыков</p>-->
-<!--            {% endfor %}-->
-<!--          </div>-->
-<!--          <h3>Опыт работы</h3>-->
-<!--          {% for experience in student.experiences.all %}-->
-<!--            <div class="experience">-->
-<!--              <h4>{{ experience.position }}</h4>-->
-<!--              <p>{{ experience.company }}</p>-->
-<!--              <p class="font-weight-bold">{{ experience.start_date }} - {{ experience.end_date }}</p>-->
-<!--              <p>{{ experience.description }}</p>-->
-<!--            </div>-->
-<!--          {% empty %}-->
-<!--            <p>Опыта работы нет</p>-->
-<!--          {% endfor %}-->
-<!--          <h3>Образование</h3>-->
-<!--          {% for education in student.educations.all %}-->
-<!--            <div class="education">-->
-<!--              <h4>{{ education.degree }}</h4>-->
-<!--              <p>{{ education.major }}</p>-->
-<!--              <p class="font-weight-bold">{{ education.school }}</p>-->
-<!--              <p>{{ education.start_date }} - {{ education.end_date }}</p>-->
-<!--            </div>-->
-<!--          {% empty %}-->
-<!--            <p>Образования нет</p>-->
-<!--          {% endfor %}-->
-<!--        </div>-->
-<!--      </div>-->
