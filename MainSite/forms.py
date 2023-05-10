@@ -22,6 +22,7 @@ class StudentForm(forms.ModelForm):
                   'email', 'photo', 'telegram', 'group', 'hide_contacts']
 
 
+
 class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
@@ -35,6 +36,9 @@ class CustomUserCreationForm(UserCreationForm):
         user = super(CustomUserCreationForm, self).save(commit=False)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        user.email = None
+        user.phone_number = None
+
         if commit:
             user.save()
         return user

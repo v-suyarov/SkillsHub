@@ -63,11 +63,6 @@ def logout_view(request):
     return redirect('home')
 
 
-def test(request):
-    print("test")
-    return render(request, "test.html", {'nodes': Skill.objects.all()})
-
-
 def user_profile(request, id):
     user = CustomUser.objects.get(id=id)
     context = {"student": user.student,
