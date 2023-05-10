@@ -1,10 +1,10 @@
 from django.contrib import admin
 from .models import *
-from django.contrib.auth.models import User
+
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm
 from datetime import date
-
+from django.contrib.auth import get_user_model
 
 
 class CustomUserAdmin(UserAdmin):
@@ -37,7 +37,8 @@ class StudentAdmin(admin.ModelAdmin):
                     (date.today().month, date.today().day) < (obj.date_of_birth.month, obj.date_of_birth.day))
         obj.save()
 
+
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Skill)
-admin.site.unregister(User)
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(Group)
