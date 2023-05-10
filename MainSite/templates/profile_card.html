@@ -6,9 +6,10 @@
         <div class="col-lg-4 col-sm-12 centre " >
 
             {% if student.photo %}
-            <img src="{{student.photo.url}}" alt="{{ student.full_name }}" class="my-3 fixed-height img-fluid pr-2 rounded">
+            <img src="{{student.photo.url}}" alt="{{ student.full_name }}" class="round-img">  <!-- фото круглое -->
+
             {% else %}
-            <img src="{% static 'image/default.jpg' %}" alt="{{ student.full_name }}" class="my-3 fixed-height img-fluid rounded pr-2">
+            <img src="{% static 'image/default.jpg' %}" alt="{{ student.full_name }}" class="round-img">  <!-- фото круглое -->
             {% endif %}
 
         </div>

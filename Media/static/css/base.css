@@ -5,6 +5,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+
 }
 
 .header {
@@ -59,13 +60,14 @@ a {
 
 /* Стили для ссылок в навигации */
 .header a {
-    color: #f9fafb;
+    color: #40c0f7;    /*слова на верхней строчке на главной странице, кроме выйти*/
     text-decoration: none;
     margin-left: 20px
+
 }
 
-.header a:hover {
-    color: #9393b8;
+.header a:hover {    /*слова на верхней строчке на главной странице при наведении*/
+    color: #fcfcfc;
     text-decoration: none;
 }
 
@@ -73,8 +75,8 @@ a {
 a.button {
    display: inline-block;
   background-color: transparent;
-  border: 1px solid #eff2f6;
-  color: #f9fafb;
+  border: 1px solid #f9fafb;
+  color: #2871de; /*кнопка выйти на верхней строчке*/
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 12px;
@@ -99,5 +101,26 @@ a.button:hover {
 .content a:hover {
     color: #4b5563;
     text-decoration: underline;
+}
+
+.container {              /*передний общий фон*/
+  background-color: #bfeff2;
+}
+
+.row{                        /*фон поля карточки пользователя*/
+    background-color: #f0f7fa;
+}
+
+.content{                        /*общий задний фон*/
+     background-color: #bfeff2;
+}
+
+
+img {                  /*круглое фото в личном профиле*/
+   width: 400px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  border: 2px solid #fff;
 }
 
