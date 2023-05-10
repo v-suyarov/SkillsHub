@@ -6,13 +6,3 @@
 .centre {
   text-align: center;
 }
-
-.round-img  /*круглая фотография на главной странице*/
- {
-
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  border: 2px solid #fff;
-}
