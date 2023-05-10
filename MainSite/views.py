@@ -8,13 +8,15 @@ from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.contrib.auth import logout
-
+import xlrd
 from datetime import date
 from datetime import datetime
 import random
 import string
 from transliterate import translit
 import random
+import xlwt
+from django.db import IntegrityError
 
 
 def student_add(request):
@@ -98,35 +100,56 @@ def upload_students(request):
         form = StudentUploadForm(request.POST, request.FILES)
         if form.is_valid():
             file = request.FILES['file']
-            content = list(map(lambda line: line.decode('utf-8').rstrip(), file.readlines()))
-            print(type(file))
-            new_file = ""
-            for fullName in content:
-                first_name = fullName.split()[1]
-                last_name = fullName.split()[0]
-                login_first = "".join(
-                    list(filter(lambda x: x not in """ `'" """, translit(first_name.lower(), 'ru', reversed=True))))
-                login_last = "".join(
-                    list(filter(lambda x: x not in """ `'" """, translit(last_name.lower(), 'ru', reversed=True))))
+            workbook = xlrd.open_workbook(file_contents=file.read())
+            sheet = workbook.sheet_by_index(0)
+            content = []
+            for row_idx in range(sheet.nrows):
+                content.append(sheet.row_values(row_idx))
+            new_workbook = xlwt.Workbook()
+            new_sheet = new_workbook.add_sheet('Students')
+            new_sheet.write(0, 0, "Имя")
+            new_sheet.write(0, 1, "Фамилия")
+            new_sheet.write(0, 2, "Логин")
+            new_sheet.write(0, 3, "Пароль")
+            for i, line in enumerate(content, 1):
+                first_name = line[0]
+                last_name = line[1]
+                record_book = int(line[2])
+
                 print(first_name, last_name)
                 # Генерируем логин в формате имя_фамилия_число
-                username = f"{login_first}_{login_last}_{CustomUser.objects.count() + 1}"
+                username = f"{record_book}"
 
                 # Символы, из которых будет состоять пароль
                 chars = string.ascii_letters + string.digits
                 # Генерация пароля длиной length
                 password = ''.join(random.choice(chars) for _ in range(6))
-                user = CustomUser.objects.create_user(username=username, password=password, first_name=first_name,
-                                                last_name=last_name)
-                user.save()
-                new_file += f"{user.first_name} {user.last_name} login: {user.username} password: {password}\n"
+                user, created = CustomUser.objects.get_or_create(username=username, defaults={
+                    'password': password,
+                    'first_name': first_name,
+                    'last_name': last_name
+                })
+
+                if created:
+                    user.save()
+                else:
+                    # пользователь с таким именем уже существует
+                    return HttpResponse(f"Вы пытаетесь добавить студента {first_name} {last_name}, но его номер зачетной книжки {record_book} уже используется")
+
+                new_sheet.write(i, 0, first_name)
+                new_sheet.write(i, 1, last_name)
+                new_sheet.write(i, 2, username)
+                new_sheet.write(i, 3, password)
 
             # Создаем HttpResponse с содержимым файла
-            response = HttpResponse(new_file, content_type='text/plain')
+            response = HttpResponse(content_type='application/ms-excel')
 
             # Устанавливаем заголовок Content-Disposition в attachment,
             # что заставляет браузер загрузить файл, а не показывать его в окне браузера.
-            response['Content-Disposition'] = 'attachment; filename="file.txt"'
+            response['Content-Disposition'] = 'attachment; filename="students.xls"'
+
+            # Записываем workbook в response
+            new_workbook.save(response)
 
             return response
     else:

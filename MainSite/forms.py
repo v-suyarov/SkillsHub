@@ -52,4 +52,4 @@ class SortForm(forms.Form):
 
 
 class StudentUploadForm(forms.Form):
-    file = forms.FileField(validators=[FileExtensionValidator(allowed_extensions=['txt'])])
+    file = forms.FileField(validators=[FileExtensionValidator(allowed_extensions=['xls'])])
